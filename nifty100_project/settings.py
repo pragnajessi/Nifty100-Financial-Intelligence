@@ -23,6 +23,10 @@ DEBUG = os.getenv("DEBUG", "False").lower() in ("1", "true", "yes")
 
 _raw_hosts = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,nifty100-financial-intelligence-eight.vercel.app,.vercel.app,*")
 ALLOWED_HOSTS = [h.strip() for h in _raw_hosts.split(",") if h.strip()]
+CSRF_TRUSTED_ORIGINS = [
+    'https://nifty100-financial-intelligence-eight.vercel.app',
+    'https://*.vercel.app',
+]
 # ── Applications ──────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
     # Django built-ins
