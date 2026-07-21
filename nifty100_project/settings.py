@@ -7,14 +7,6 @@ Loads secrets from .env (python-dotenv).
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-# 1. Allow Vercel domain and wildcards
-ALLOWED_HOSTS = [
-    'nifty100-financial-intelligence-eight.vercel.app',
-    '.vercel.app',
-    '127.0.0.1',
-    'localhost',
-    '*',  # Temporary test: set to '*' to verify if ALLOWED_HOSTS is the culprit
-]
 
 # 2. Tell Django to trust Vercel's proxy headers for HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -29,9 +21,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "change-me-in-production")
 
 DEBUG = os.getenv("DEBUG", "False").lower() in ("1", "true", "yes")
 
-_raw_hosts = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1")
+_raw_hosts = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,nifty100-financial-intelligence-eight.vercel.app,.vercel.app,*")
 ALLOWED_HOSTS = [h.strip() for h in _raw_hosts.split(",") if h.strip()]
-
 # ── Applications ──────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
     # Django built-ins
